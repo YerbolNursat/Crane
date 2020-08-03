@@ -10,5 +10,9 @@
     <color name="black21">#212121</color>
 
     <color name="button_secondary">#E9ECFF</color>
+    <color name="whiteSmoke">#F5F5F5</color>
+    <color name="black33">#333333</color>
+    <color name="grayColorBD">#BDBDBD</color>
+    <color name="redFailed">#F44336</color>
 
 </resources>

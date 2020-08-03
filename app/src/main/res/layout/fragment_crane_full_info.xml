@@ -50,24 +50,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Краткие сведения крана"
+                        android:text="Полная проверка крана"
                         android:textColor="@color/black21"
                         android:textSize="@dimen/textsize_20sp" />
                 </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/crane_info_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    android:clipToPadding="false"
-                    android:layoutAnimation="@anim/layout_animation"
-                    android:paddingBottom="@dimen/padding_64dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
             </LinearLayout>
-
-
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout

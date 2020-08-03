@@ -9,8 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crane.R
 import com.example.crane.base.BaseFragment
+import com.example.crane.custom_view.CustomToast
 import com.example.crane.databinding.FragmentCraneInfoBinding
 import com.example.crane.databinding.FragmentCraneTypesBinding
+import com.example.crane.events.Event
 import com.example.crane.ui.crane_types.CraneTypesViewModel
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CraneTypeUi
@@ -49,11 +51,24 @@ class CraneInfoFragment : BaseFragment() {
         ic_back.setOnClickListener {
             activity?.onBackPressed()
         }
+        btn_apply.setOnClickListener {
+            viewModel.checkOnCompleteness()
+        }
     }
+
     override fun onStart() {
         super.onStart()
         viewModel.items.observe(viewLifecycleOwner, Observer(::onItemsChanged))
+        viewModel.newDestination.observe(viewLifecycleOwner, Observer(::onNavigate))
 
+    }
+
+    private fun onNavigate(event: Event<Boolean>) {
+        if (event.peek()) {
+            findNavController().navigate(R.id.action_craneInfoFragment_to_craneFullInfoFragment)
+        } else {
+            CustomToast(root_cl).showMessage("Заполните поля")
+        }
     }
 
     private fun onItemsChanged(data: List<CraneInfoUi>) {

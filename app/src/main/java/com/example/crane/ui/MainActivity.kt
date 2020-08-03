@@ -23,7 +23,8 @@ class MainActivity : BaseActivity() {
     private fun initBottomNavigationBar(navView: BottomNavigationView) {
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.craneInfoFragment -> {
+                R.id.craneInfoFragment,
+                R.id.craneFullInfoFragment -> {
                     navView.visibility = View.GONE
                 }
                 else -> {

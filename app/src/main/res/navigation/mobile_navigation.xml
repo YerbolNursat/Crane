@@ -28,7 +28,21 @@
         android:id="@+id/craneInfoFragment"
         android:name="com.example.crane.ui.crane_info.CraneInfoFragment"
         android:label="CraneInfoFragment"
-        tools:layout="@layout/fragment_crane_info" />
+        tools:layout="@layout/fragment_crane_info">
+        <action
+            android:id="@+id/action_craneInfoFragment_to_craneFullInfoFragment"
+            app:destination="@id/craneFullInfoFragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_out_up"
+            app:popExitAnim="@anim/slide_in_up" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/craneFullInfoFragment"
+        android:name="com.example.crane.ui.crane_full_info.CraneFullInfoFragment"
+        android:label="CraneFullInfoFragment"
+        tools:layout="@layout/fragment_crane_full_info" />
 
 
 </navigation>
