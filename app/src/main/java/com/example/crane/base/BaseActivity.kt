@@ -1,4 +1,4 @@
-package com.example.crane.ui.base
+package com.example.crane.base
 
 import android.os.Build
 import android.os.Bundle
@@ -11,15 +11,11 @@ abstract class BaseActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(baseContext, R.color.black)
-        }
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.black)
     }
 
     fun setStatusBar(color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(baseContext, color)
-        }
+        window.statusBarColor = ContextCompat.getColor(baseContext, color)
     }
 
 }

@@ -1,11 +1,14 @@
-package com.example.crane.ui.base
+package com.example.crane.base
 
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.crane.modal.ModalBottomSheetDialog
+import timber.log.Timber
 
-abstract class BaseFragment :Fragment(){
+abstract class BaseFragment : Fragment() {
     lateinit var modalBottomSheetDialogService: ModalBottomSheetDialog
 
     fun hideKeyBoard() {
@@ -13,6 +16,7 @@ abstract class BaseFragment :Fragment(){
             requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
+
     fun bottomIsShowing(): Boolean {
         return try {
             modalBottomSheetDialogService.isShowing
@@ -20,5 +24,17 @@ abstract class BaseFragment :Fragment(){
             false
         }
     }
+    fun initBackDispatcher() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                    Timber.i("handleOnBackPressed")
+                }
+            }
+        )
+    }
+
 
 }

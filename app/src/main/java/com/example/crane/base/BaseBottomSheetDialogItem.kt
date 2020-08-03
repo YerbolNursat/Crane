@@ -1,4 +1,4 @@
-package com.example.crane.ui.base
+package com.example.crane.base
 
 import androidx.databinding.ViewDataBinding
 import com.xwray.groupie.databinding.BindableItem

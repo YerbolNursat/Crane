@@ -1,4 +1,4 @@
-package com.example.crane.ui.crane_types
+package com.example.crane.ui.crane_info
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,17 +9,21 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crane.R
 import com.example.crane.base.BaseFragment
+import com.example.crane.databinding.FragmentCraneInfoBinding
 import com.example.crane.databinding.FragmentCraneTypesBinding
+import com.example.crane.ui.crane_types.CraneTypesViewModel
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CraneTypeUi
+import com.example.crane.utils.getCraneInfoResponseFromAssetFile
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_crane_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CraneTypesFragment : BaseFragment() {
+class CraneInfoFragment : BaseFragment() {
 
-    private val viewModel: CraneTypesViewModel by viewModel()
-    private lateinit var binding: FragmentCraneTypesBinding
+    private val viewModel: CraneInfoViewModel by viewModel()
+    private lateinit var binding: FragmentCraneInfoBinding
     private val groupAdapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreateView(
@@ -27,45 +31,49 @@ class CraneTypesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCraneTypesBinding.inflate(inflater, container, false).apply {
+        binding = FragmentCraneInfoBinding.inflate(inflater, container, false).apply {
             viewModel = viewModel
-            lifecycleOwner = this@CraneTypesFragment.viewLifecycleOwner
+            lifecycleOwner = this@CraneInfoFragment.viewLifecycleOwner
         }
+        initBackDispatcher()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initOnClickListener()
         initRecyclerView()
     }
 
+    private fun initOnClickListener() {
+        ic_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+    }
     override fun onStart() {
         super.onStart()
         viewModel.items.observe(viewLifecycleOwner, Observer(::onItemsChanged))
 
     }
 
-    private fun onItemsChanged(data: List<CraneTypeUi>) {
+    private fun onItemsChanged(data: List<CraneInfoUi>) {
         groupAdapter.clear()
         groupAdapter.addAll(data)
         groupAdapter.setOnItemClickListener { item, _ ->
-            item as CraneTypeUi
-            findNavController().navigate(
-                R.id.action_navigation_crane_types_to_craneInfoFragment,
-                bundleOf("id" to item.id)
-            )
+            item as CraneInfoUi
+
         }
     }
 
 
     private fun initRecyclerView() {
-        binding.craneTypesRv.apply {
+        binding.craneInfoRv.apply {
             adapter = groupAdapter
         }
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.requestItems()
+        viewModel.requestItems(requireContext())
     }
 }

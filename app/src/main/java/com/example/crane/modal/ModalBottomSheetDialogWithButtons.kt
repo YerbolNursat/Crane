@@ -3,7 +3,7 @@ package com.example.crane.modal
 import android.content.Context
 import android.content.res.Resources
 import android.view.View
-import com.example.crane.ui.base.BaseBottomSheetDialogItem
+import com.example.crane.base.BaseBottomSheetDialogItem
 import kotlinx.android.synthetic.main.bottom_sheet_recycler_with_buttons.*
 
 class ModalBottomSheetDialogWithButtons(

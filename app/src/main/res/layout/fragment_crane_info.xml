@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.crane.ui.crane_types.CraneTypesViewModel" />
+            type="com.example.crane.ui.crane_info.CraneInfoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,25 +28,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ic_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_40dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:src="@drawable/ic_arrow_circle_back" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Выберите тип крана"
+                    android:text="Краткие сведения крана"
                     android:textColor="@color/black21"
                     android:textSize="@dimen/textsize_20sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/crane_types_rv"
+                android:id="@+id/crane_info_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:layoutAnimation="@anim/layout_animation"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
