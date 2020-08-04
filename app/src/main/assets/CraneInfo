@@ -74,10 +74,10 @@
       "question": "Режим работы",
       "subQuestions": [
         {
-          "question": "ФИО"
+          "question": "Паспортный"
         },
         {
-          "question": "Должность"
+          "question": "Фактический"
         }
       ]
     },

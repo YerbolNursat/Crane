@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.crane.ui.crane_info.CraneInfoViewModel" />
+            type="com.example.crane.ui.crane_full_info.CraneFullInfoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -54,8 +53,62 @@
                         android:textColor="@color/black21"
                         android:textSize="@dimen/textsize_20sp" />
                 </LinearLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@drawable/bg_tab_layout"
+                    android:fontFamily="sans-serif-medium"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tabBackground="@drawable/bg_tab_layout_selector"
+                    app:tabGravity="fill"
+                    app:tabIndicator="@null"
+                    app:tabIndicatorAnimationDuration="3"
+                    app:tabIndicatorGravity="center"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@null"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextAppearance="@style/TabLayoutTextAppearance"
+                    app:tabTextColor="@color/grayColor82" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mech_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:paddingBottom="@dimen/padding_64dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/el_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:paddingBottom="@dimen/padding_64dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/constr_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:paddingBottom="@dimen/padding_64dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
 
         <LinearLayout
             android:layout_width="match_parent"

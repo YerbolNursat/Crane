@@ -17,9 +17,14 @@ import com.example.crane.ui.crane_types.CraneTypesViewModel
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CraneTypeUi
 import com.example.crane.utils.getCraneInfoResponseFromAssetFile
+import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.android.synthetic.main.fragment_crane_full_info.*
 import kotlinx.android.synthetic.main.fragment_crane_info.*
+import kotlinx.android.synthetic.main.fragment_crane_info.btn_apply
+import kotlinx.android.synthetic.main.fragment_crane_info.ic_back
+import kotlinx.android.synthetic.main.fragment_crane_info.root_cl
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CraneInfoFragment : BaseFragment() {
@@ -80,12 +85,14 @@ class CraneInfoFragment : BaseFragment() {
         }
     }
 
-
     private fun initRecyclerView() {
         binding.craneInfoRv.apply {
             adapter = groupAdapter
         }
     }
+
+
+
 
     override fun onResume() {
         super.onResume()

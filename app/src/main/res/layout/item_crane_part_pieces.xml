@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.example.crane.ui.items.CranePartPiecesUi" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{_ -> data.onClick()}"
+        android:paddingTop="@dimen/padding_16dp"
+        android:paddingBottom="@dimen/padding_16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/width_24dp"
+            android:layout_height="@dimen/height_24dp"
+            android:src="@drawable/ic_warning"
+            android:visibility="@{data.value.filled ? View.INVISIBLE : View.VISIBLE }" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.name}"
+                android:textColor="@color/black21"
+                android:textSize="@dimen/text_size_17sp"
+                tools:text="Качество посадки муфты" />
+
+            <TextView
+                android:id="@+id/text_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.value.comments}"
+                android:textColor="@color/grayColor9E"
+                android:textSize="@dimen/text_size_13sp"
+                tools:text="Всё очень плохо" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Удовлетворительное"
+                    android:textColor="@color/grayColor82"
+                    android:textSize="@dimen/textsize_15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/width_24dp"
+                    android:layout_height="@dimen/height_24dp"
+                    android:src="@drawable/ic_check_blue"
+                    android:visibility="@{data.value.satisfactory ? View.VISIBLE : View.INVISIBLE}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Неудовлетворительное"
+                    android:textColor="@color/grayColor82"
+                    android:textSize="@dimen/textsize_15sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/width_24dp"
+                    android:layout_height="@dimen/height_24dp"
+                    android:src="@drawable/ic_check_blue"
+                    android:visibility="@{data.value.unsatisfactory ? View.VISIBLE : View.INVISIBLE}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

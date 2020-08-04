@@ -14,5 +14,9 @@
     <color name="black33">#333333</color>
     <color name="grayColorBD">#BDBDBD</color>
     <color name="redFailed">#F44336</color>
+    <color name="grayColor82">#828282</color>
+    <color name="whiteEE">#EEEEEE</color>
+    <color name="grayColor9E">#9E9E9E</color>
+    <color name="greyColor75">#757575</color>
 
 </resources>
