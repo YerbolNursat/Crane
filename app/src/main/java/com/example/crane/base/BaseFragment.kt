@@ -24,6 +24,7 @@ abstract class BaseFragment : Fragment() {
             false
         }
     }
+
     fun initBackDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -35,6 +36,5 @@ abstract class BaseFragment : Fragment() {
             }
         )
     }
-
 
 }

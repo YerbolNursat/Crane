@@ -4,27 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.crane.R
+import com.example.crane.base.BaseFragment
+import com.example.crane.databinding.FragmentProfileBinding
+import com.example.crane.utils.SharedPreferencesSetting
+import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.android.ext.android.inject
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var binding: FragmentProfileBinding
+    private val sharedPreferencesSetting: SharedPreferencesSetting by inject()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        viewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        binding = FragmentProfileBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@ProfileFragment.viewLifecycleOwner
+        }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        first_name_tv.text = sharedPreferencesSetting.firstName
+        second_name_tv.text = sharedPreferencesSetting.secondName
+        last_name_tv.text = sharedPreferencesSetting.lastName
+        job_position_tv.text = sharedPreferencesSetting.jobPosition
+
+        initOnClickListener()
+    }
+
+    private fun initOnClickListener() {
+        btn_change.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_editProfileFragment)
+        }
     }
 }

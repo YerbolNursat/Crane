@@ -81,6 +81,8 @@
     <dimen name="height_80dp">80dp</dimen>
     <dimen name="height_120dp">120dp</dimen>
     <dimen name="height_150dp">150dp</dimen>
+    <dimen name="height_200dp">200dp</dimen>
+    <dimen name="height_240dp">240dp</dimen>
     <dimen name="height_212dp">212dp</dimen>
     <dimen name="height_360dp">360dp</dimen>
 

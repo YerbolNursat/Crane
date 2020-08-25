@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.crane.R
 import com.example.crane.base.BaseFragment
+import com.example.crane.custom_view.CustomToast
 import com.example.crane.databinding.FragmentCraneFullInfoBinding
+import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CranePartsUi
+import com.example.crane.ui.items.CraneTypeUi
 import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_crane_full_info.*
-import kotlinx.android.synthetic.main.fragment_crane_full_info.ic_back
-import kotlinx.android.synthetic.main.fragment_crane_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class CraneFullInfoFragment : BaseFragment() {
 
@@ -22,7 +27,6 @@ class CraneFullInfoFragment : BaseFragment() {
     private lateinit var binding: FragmentCraneFullInfoBinding
     private val groupAdapterMech = GroupAdapter<GroupieViewHolder>()
     private val groupAdapterEl = GroupAdapter<GroupieViewHolder>()
-    private val groupAdapterConstr = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +43,17 @@ class CraneFullInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.requestItems(requireContext(), 1)
+        arguments?.let {
+            Timber.i(it.getInt("id").toString())
+            Timber.i(it.get("craneTypeUi").toString())
+            Timber.i(it.getString("header_title").toString())
+        }
+        binding.headerTitle.text = arguments?.getString("header_title")!!
+        viewModel.requestItems(
+            requireContext(),
+            arguments?.getInt("id")!!,
+            arguments?.get("craneTypeUi") as List<CraneTypeUi>?
+        )
         initRecyclerView()
         initTabLayout()
         initOnClickListener()
@@ -50,6 +64,22 @@ class CraneFullInfoFragment : BaseFragment() {
         ic_back.setOnClickListener {
             activity?.onBackPressed()
         }
+        btn_apply.setOnClickListener {
+            if (viewModel.checkOnCompleteness()){
+                viewModel.setData()
+                findNavController().navigate(
+                    R.id.action_craneFullInfoFragment_to_navigation_crane_types,
+                    bundleOf(
+                        "craneTypeUi" to viewModel.items,
+                        "id" to arguments?.getInt("id")!!,
+                        "craneInfoUi" to arguments?.get("craneInfoUi") as List<CraneInfoUi>
+
+                    )
+                )
+            } else {
+                CustomToast(root_cl).showMessage("Заполните поля")
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -59,9 +89,6 @@ class CraneFullInfoFragment : BaseFragment() {
         binding.elRv.apply {
             adapter = groupAdapterEl
         }
-        binding.constrRv.apply {
-            adapter = groupAdapterConstr
-        }
     }
 
     override fun onStart() {
@@ -69,7 +96,6 @@ class CraneFullInfoFragment : BaseFragment() {
         viewModel.itemsMech.observe(viewLifecycleOwner, Observer(::onItemsMechChanged))
         viewModel.itemsEl.observe(viewLifecycleOwner, Observer(::onItemsElChanged))
 
-//        viewModel.newDestination.observe(viewLifecycleOwner, Observer(::onNavigate))
 
     }
 
@@ -80,17 +106,15 @@ class CraneFullInfoFragment : BaseFragment() {
 
     private fun onItemsMechChanged(data: List<CranePartsUi>) {
         groupAdapterMech.addAll(data)
-        groupAdapterEl.notifyDataSetChanged()
+        groupAdapterMech.notifyDataSetChanged()
     }
 
     private fun initTabLayout() {
         tabLayout.addTab(tabLayout.newTab())
         tabLayout.addTab(tabLayout.newTab())
-        tabLayout.addTab(tabLayout.newTab())
 
         tabLayout.getTabAt(0)?.text = "Механическая"
         tabLayout.getTabAt(1)?.text = "Электрическая"
-        tabLayout.getTabAt(2)?.text = "Конструктор"
 
         tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -99,24 +123,15 @@ class CraneFullInfoFragment : BaseFragment() {
                         binding.mechRv.visibility = View.VISIBLE
                         binding.mechRv.scheduleLayoutAnimation()
                         binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.GONE
                     }
 
                     1 -> {
                         binding.mechRv.visibility = View.GONE
                         binding.elRv.visibility = View.VISIBLE
                         binding.elRv.scheduleLayoutAnimation()
-                        binding.constrRv.visibility = View.GONE
 
                     }
 
-                    2 -> {
-                        binding.mechRv.visibility = View.GONE
-                        binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.VISIBLE
-                        binding.constrRv.scheduleLayoutAnimation()
-
-                    }
                 }
             }
 
@@ -126,24 +141,14 @@ class CraneFullInfoFragment : BaseFragment() {
                         binding.mechRv.visibility = View.VISIBLE
                         binding.mechRv.scheduleLayoutAnimation()
                         binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.GONE
                     }
 
                     1 -> {
                         binding.mechRv.visibility = View.GONE
                         binding.elRv.visibility = View.VISIBLE
                         binding.elRv.scheduleLayoutAnimation()
-                        binding.constrRv.visibility = View.GONE
-
                     }
 
-                    2 -> {
-                        binding.mechRv.visibility = View.GONE
-                        binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.VISIBLE
-                        binding.constrRv.scheduleLayoutAnimation()
-
-                    }
                 }
 
             }
@@ -154,24 +159,15 @@ class CraneFullInfoFragment : BaseFragment() {
                         binding.mechRv.visibility = View.VISIBLE
                         binding.mechRv.scheduleLayoutAnimation()
                         binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.GONE
                     }
 
                     1 -> {
                         binding.mechRv.visibility = View.GONE
                         binding.elRv.visibility = View.VISIBLE
                         binding.elRv.scheduleLayoutAnimation()
-                        binding.constrRv.visibility = View.GONE
 
                     }
 
-                    2 -> {
-                        binding.mechRv.visibility = View.GONE
-                        binding.elRv.visibility = View.GONE
-                        binding.constrRv.visibility = View.VISIBLE
-                        binding.constrRv.scheduleLayoutAnimation()
-
-                    }
                 }
 
             }

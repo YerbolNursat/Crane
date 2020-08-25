@@ -1,7 +1,6 @@
 package com.example.crane.ui.crane_info
 
 import android.content.Context
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +18,9 @@ class CraneInfoViewModel : ViewModel() {
 
     val newDestination = LiveEvent<Event<Boolean>>()
 
-    fun requestItems(context: Context) {
+    fun requestItems(
+        context: Context
+    ) {
         val response = getCraneInfoResponseFromAssetFile(context)
         _items.value = transformDataToCraneInfoUi(response)
     }
@@ -39,20 +40,21 @@ class CraneInfoViewModel : ViewModel() {
     }
 
     fun checkOnCompleteness() {
-//        _items.value?.forEach {
-//            if (it.required) {
-//                if (it.value.answer.isNullOrEmpty()) {
-//                    newDestination.value = Event(false)
-//                    return
-//                }
-//                it.subQuestions.forEach { subQuestion ->
-//                    if (subQuestion.value.answer.isNullOrEmpty()) {
-//                        newDestination.value = Event(false)
-//                        return
-//                    }
-//                }
-//            }
-//        }
+        _items.value?.forEach {
+            if (it.required) {
+                if (it.answer.isNullOrEmpty() && it.subQuestions.isEmpty()) {
+                    newDestination.value = Event(false)
+                    return
+                }
+                it.subQuestions.forEach { subQuestion ->
+                    if (subQuestion.answer.isNullOrEmpty()) {
+                        newDestination.value = Event(false)
+                        return
+                    }
+                }
+            }
+        }
         newDestination.value = Event(true)
     }
+
 }

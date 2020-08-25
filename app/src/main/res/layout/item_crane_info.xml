@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@{data.answer}"
             android:background="@color/whiteSmoke"
             android:hint="Заполните здесь"
             android:maxLines="5"

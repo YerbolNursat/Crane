@@ -46,6 +46,7 @@
                         android:src="@drawable/ic_arrow_circle_back" />
 
                     <TextView
+                        android:id="@+id/header_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -56,8 +57,9 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_40dp"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:background="@drawable/bg_tab_layout"
                     android:fontFamily="sans-serif-medium"
@@ -70,7 +72,7 @@
                     app:tabIndicator="@null"
                     app:tabIndicatorAnimationDuration="3"
                     app:tabIndicatorGravity="center"
-                    app:tabMode="fixed"
+                    app:tabMode="auto"
                     app:tabRippleColor="@null"
                     app:tabSelectedTextColor="@color/white"
                     app:tabTextAppearance="@style/TabLayoutTextAppearance"
@@ -88,16 +90,6 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/el_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    android:layoutAnimation="@anim/layout_animation"
-                    android:paddingBottom="@dimen/padding_64dp"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/constr_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/margin_16dp"

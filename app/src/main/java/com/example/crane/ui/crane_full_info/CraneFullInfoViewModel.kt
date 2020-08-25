@@ -9,6 +9,7 @@ import com.example.crane.entities.CraneMechInfo
 import com.example.crane.events.Event
 import com.example.crane.ui.items.CranePartPiecesUi
 import com.example.crane.ui.items.CranePartsUi
+import com.example.crane.ui.items.CraneTypeUi
 import com.example.crane.utils.getCraneElInfoResponseFromAssetFile
 import com.example.crane.utils.getCraneMechInfoResponseFromAssetFile
 import com.hadilq.liveevent.LiveEvent
@@ -20,7 +21,8 @@ class CraneFullInfoViewModel : ViewModel() {
     private val _itemsEl = MutableLiveData<List<CranePartsUi>>()
     val itemsEl: LiveData<List<CranePartsUi>> = _itemsEl
 
-    val newDestination = LiveEvent<Event<Boolean>>()
+    var items: MutableList<CraneTypeUi> = mutableListOf()
+    var id = 1
 
     private val actionToCheckMechPieces: (() -> Unit) = {
         _itemsMech.value?.forEach {
@@ -43,12 +45,29 @@ class CraneFullInfoViewModel : ViewModel() {
         }
     }
 
-    fun requestItems(context: Context, id: Int) {
-        val responseMech = getCraneMechInfoResponseFromAssetFile(context, id)
-        val responseEl = getCraneElInfoResponseFromAssetFile(context, id)
+    fun requestItems(
+        context: Context,
+        id: Int,
+        list: List<CraneTypeUi>?
+    ) {
+        this.id = id
+        list?.let {
+            items = it as MutableList<CraneTypeUi>
+            items.forEach {
+                if (it.id == id) {
+                    if (!it.value.cranePartsUiMech.isNullOrEmpty() && !it.value.cranePartsUiEl.isNullOrEmpty()) {
+                        _itemsMech.value = it.value.cranePartsUiMech
+                        _itemsEl.value = it.value.cranePartsUiEl
+                        return
+                    }
+                }
+            }
+        }
+        val responseMech = getCraneMechInfoResponseFromAssetFile(context, this.id)
         responseMech?.let {
             _itemsMech.value = transformDataToCranePartsUi(responseMech)
         }
+        val responseEl = getCraneElInfoResponseFromAssetFile(context, this.id)
         responseEl?.let {
             _itemsEl.value = transformDataToCranePartsUi(responseEl)
         }
@@ -82,6 +101,29 @@ class CraneFullInfoViewModel : ViewModel() {
                 }
 
             )
+        }
+    }
+
+    fun checkOnCompleteness(): Boolean {
+        _itemsEl.value?.forEach {
+            if (it.value.filled) {
+                return false
+            }
+        }
+        _itemsMech.value?.forEach {
+            if (it.value.filled) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun setData() {
+        items.forEach {
+            if (it.id == id) {
+                it.value.cranePartsUiMech = itemsMech.value
+                it.value.cranePartsUiEl = itemsEl.value
+            }
         }
     }
 }

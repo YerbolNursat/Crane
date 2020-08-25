@@ -43,6 +43,7 @@
             android:maxLines="5"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingTop="@dimen/padding_14dp"
+            android:text="@{data.answer}"
             android:paddingEnd="@dimen/padding_16dp"
             android:paddingBottom="@dimen/padding_14dp"
             android:textColor="@color/black33"

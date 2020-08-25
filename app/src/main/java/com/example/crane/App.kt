@@ -4,14 +4,13 @@ import android.app.Application
 import android.content.Context
 import com.example.crane.di.modules
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
 
 class App : Application() {
-    
-    companion object{
+
+    companion object {
         lateinit var appContext: Context
     }
 
@@ -23,17 +22,16 @@ class App : Application() {
 
         appContext = applicationContext
 
-
         startKoin {
             androidContext(this@App)
             modules(modules)
         }
 
     }
+
     private fun setupTimber() {
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
-
 
 
 }

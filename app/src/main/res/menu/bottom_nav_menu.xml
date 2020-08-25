@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_crane_types"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/chooseCraneFragment"
+        android:icon="@drawable/ic_homepage"
         android:title="Типы Кранов" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_user"
         android:title="Профиль" />
 
 </menu>

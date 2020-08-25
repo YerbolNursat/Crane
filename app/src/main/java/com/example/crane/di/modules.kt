@@ -1,6 +1,6 @@
 package com.example.crane.di
 
-
 val modules = listOf(
-    appModule
+    appModule,
+    locale_module
 )

@@ -1,38 +1,37 @@
 package com.example.crane.ui.items
 
 import androidx.core.widget.doOnTextChanged
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.crane.BR
 import com.example.crane.R
 import com.example.crane.databinding.ItemCraneInfoBinding
 import com.example.crane.databinding.ItemCraneInfoSubquestionsBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.databinding.BindableItem
-
+import java.io.Serializable
 data class CraneInfoUi(
     val required: Boolean,
     val question: String,
-    val subQuestions: List<CraneInfoSubQuestionsUi>
-) : BindableItem<ViewDataBinding>() {
+    val subQuestions: List<CraneInfoSubQuestionsUi>,
+    var answer: String? = null
+) : BindableItem<ViewDataBinding>(), Serializable {
     private val groupAdapter = GroupAdapter<GroupieViewHolder>()
     lateinit var binding: ItemCraneInfoBinding
-    private val value = ValueQuestion()
     override fun getLayout(): Int {
         return R.layout.item_crane_info
     }
 
+
     override fun bind(viewBinding: ViewDataBinding, position: Int) {
         when (viewBinding) {
             is ItemCraneInfoBinding -> {
+
                 viewBinding.data = this
                 binding = viewBinding
                 initRecyclerView()
                 binding.answerEditText.doOnTextChanged { text, _, _, _ ->
-                    value.answer = text.toString()
+                    answer = text.toString()
                 }
             }
         }
@@ -48,12 +47,12 @@ data class CraneInfoUi(
     }
 
 }
-
 data class CraneInfoSubQuestionsUi(
-    val question: String
-) : BindableItem<ViewDataBinding>() {
+    val question: String,
+    var answer: String? = null
+
+) : BindableItem<ViewDataBinding>(), Serializable {
     lateinit var binding: ItemCraneInfoSubquestionsBinding
-    private val value = ValueQuestion()
 
     override fun getLayout(): Int {
         return R.layout.item_crane_info_subquestions
@@ -65,7 +64,7 @@ data class CraneInfoSubQuestionsUi(
                 viewBinding.data = this
                 binding = viewBinding
                 binding.answerEditText.doOnTextChanged { text, _, _, _ ->
-                    value.answer = text.toString()
+                    answer = text.toString()
                 }
 
             }
@@ -75,12 +74,3 @@ data class CraneInfoSubQuestionsUi(
 
 }
 
-class ValueQuestion : BaseObservable() {
-    @Bindable
-    var answer: String? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.answer)
-        }
-
-}

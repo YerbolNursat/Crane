@@ -8,11 +8,12 @@ import com.example.crane.BR
 import com.example.crane.R
 import com.example.crane.databinding.ItemCranePartsBinding
 import com.xwray.groupie.databinding.BindableItem
+import java.io.Serializable
 
 data class CranePartsUi(
     val name: String,
     val pieces: List<CranePartPiecesUi>
-) : BindableItem<ViewDataBinding>() {
+) : BindableItem<ViewDataBinding>(), Serializable { //todo Лень писать отдельный DTO
     val value = ValueParts()
 
     override fun getLayout(): Int {
@@ -24,6 +25,9 @@ data class CranePartsUi(
             is ItemCranePartsBinding -> {
                 viewBinding.data = this
                 val rvView = viewBinding.rvServices
+                if (value.openView == true) {
+                    rvView.visibility = View.VISIBLE
+                }
                 viewBinding.toShow.setOnClickListener {
                     when (rvView.visibility) {
                         View.VISIBLE -> {

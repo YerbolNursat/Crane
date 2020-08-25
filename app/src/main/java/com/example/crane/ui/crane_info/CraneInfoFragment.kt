@@ -11,27 +11,21 @@ import com.example.crane.R
 import com.example.crane.base.BaseFragment
 import com.example.crane.custom_view.CustomToast
 import com.example.crane.databinding.FragmentCraneInfoBinding
-import com.example.crane.databinding.FragmentCraneTypesBinding
 import com.example.crane.events.Event
-import com.example.crane.ui.crane_types.CraneTypesViewModel
 import com.example.crane.ui.items.CraneInfoUi
-import com.example.crane.ui.items.CraneTypeUi
-import com.example.crane.utils.getCraneInfoResponseFromAssetFile
-import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.fragment_crane_full_info.*
 import kotlinx.android.synthetic.main.fragment_crane_info.*
-import kotlinx.android.synthetic.main.fragment_crane_info.btn_apply
-import kotlinx.android.synthetic.main.fragment_crane_info.ic_back
-import kotlinx.android.synthetic.main.fragment_crane_info.root_cl
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+
 
 class CraneInfoFragment : BaseFragment() {
 
     private val viewModel: CraneInfoViewModel by viewModel()
     private lateinit var binding: FragmentCraneInfoBinding
     private val groupAdapter = GroupAdapter<GroupieViewHolder>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +42,7 @@ class CraneInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.requestItems(requireContext())
         initOnClickListener()
         initRecyclerView()
     }
@@ -70,19 +65,21 @@ class CraneInfoFragment : BaseFragment() {
 
     private fun onNavigate(event: Event<Boolean>) {
         if (event.peek()) {
-            findNavController().navigate(R.id.action_craneInfoFragment_to_craneFullInfoFragment)
+            hideKeyBoard()
+            findNavController().navigate(
+                R.id.action_craneInfoFragment_to_navigation_crane_types,
+                bundleOf("craneInfoUi" to viewModel.items.value)
+            )
         } else {
             CustomToast(root_cl).showMessage("Заполните поля")
         }
+
     }
 
     private fun onItemsChanged(data: List<CraneInfoUi>) {
+        Timber.i("OnItemsChanged")
         groupAdapter.clear()
         groupAdapter.addAll(data)
-        groupAdapter.setOnItemClickListener { item, _ ->
-            item as CraneInfoUi
-
-        }
     }
 
     private fun initRecyclerView() {
@@ -91,11 +88,4 @@ class CraneInfoFragment : BaseFragment() {
         }
     }
 
-
-
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.requestItems(requireContext())
-    }
 }

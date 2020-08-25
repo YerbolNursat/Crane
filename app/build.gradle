@@ -71,6 +71,10 @@ dependencies {
     // LiveEvent
     implementation "com.github.hadilq.liveevent:liveevent:$liveEvent"
 
+    // PDFgenerator
+    implementation "com.uttampanchasara.pdfgenerator:pdfgenerator:$pdfGenerator"
+
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
