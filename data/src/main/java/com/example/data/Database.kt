@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.data.converters.QuestionConverter
 import com.example.data.daos.QuestionDao
-import com.example.data.entities.Question
+import com.example.data.entities.CraneInfo
 
 @Database(
     entities = [
-        Question::class
+        CraneInfo::class
     ],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(QuestionConverter::class)
 abstract class DB : RoomDatabase() {
 
     abstract fun getQuestion(): QuestionDao

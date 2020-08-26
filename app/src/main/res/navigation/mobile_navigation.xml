@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/craneMetalConstructorFragment"
-        android:name="com.example.crane.ui.crane_metal_constructor.CraneMetalConstructorFragment"
+        android:name="com.example.crane.ui.crane_metal_constructor.CraneMetalConstructorInfoFragment"
         android:label="CraneMetalConstructorFragment"
         tools:layout="@layout/fragment_crane_metal_constructor_info" >
         <action

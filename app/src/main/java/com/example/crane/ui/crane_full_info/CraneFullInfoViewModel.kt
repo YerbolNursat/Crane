@@ -4,15 +4,13 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crane.entities.CraneElInfo
-import com.example.crane.entities.CraneMechInfo
-import com.example.crane.events.Event
 import com.example.crane.ui.items.CranePartPiecesUi
 import com.example.crane.ui.items.CranePartsUi
 import com.example.crane.ui.items.CraneTypeUi
 import com.example.crane.utils.getCraneElInfoResponseFromAssetFile
 import com.example.crane.utils.getCraneMechInfoResponseFromAssetFile
-import com.hadilq.liveevent.LiveEvent
+import com.example.domain.entities.CraneElInfo
+import com.example.domain.entities.CraneMechInfo
 
 class CraneFullInfoViewModel : ViewModel() {
     private val _itemsMech = MutableLiveData<List<CranePartsUi>>()

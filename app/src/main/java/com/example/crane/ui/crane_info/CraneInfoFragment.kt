@@ -8,17 +8,16 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crane.R
-import com.example.crane.base.BaseFragment
-import com.example.crane.custom_view.CustomToast
+import com.example.ui_components.custom_view.CustomToast
 import com.example.crane.databinding.FragmentCraneInfoBinding
-import com.example.crane.events.Event
+import com.example.ui_components.events.Event
 import com.example.crane.ui.items.CraneInfoUi
+import com.example.ui_components.base.BaseFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_crane_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
 
 class CraneInfoFragment : BaseFragment() {
 

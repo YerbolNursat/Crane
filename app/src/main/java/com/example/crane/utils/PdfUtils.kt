@@ -5,7 +5,7 @@ import android.os.Build
 import android.os.Environment
 import android.print.PrintAttributes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.example.crane.custom_view.CustomToast
+import com.example.ui_components.custom_view.CustomToast
 import com.uttampanchasara.pdfgenerator.CreatePdf
 import timber.log.Timber
 

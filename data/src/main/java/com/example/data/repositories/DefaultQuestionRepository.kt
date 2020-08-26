@@ -1,28 +1,53 @@
 package com.example.data.repositories
 
-import androidx.lifecycle.LiveData
 import com.example.data.daos.QuestionDao
-import com.example.domain.entities.Question
+import com.example.domain.entities.CraneInfo
+import com.example.domain.entities.CraneInfoSubQuestions
 import com.example.domain.repositories.QuestionRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class DefaultQuestionRepository (
+class DefaultQuestionRepository(
     private val questionDao: QuestionDao
-): QuestionRepository {
-    override suspend fun insertQuestion(question: Question) {
+) : QuestionRepository {
+    override suspend fun insertQuestion(question: CraneInfo) {
         val item = question.let {
-            com.example.data.entities.Question(
-                name = it.name
+            com.example.data.entities.CraneInfo(
+                required = it.required,
+                question = it.question,
+                answer = it.answer,
+                subQuestions = it.subQuestions.map { sub ->
+                    com.example.data.entities.CraneInfoSubQuestions(
+                        answer = sub.answer,
+                        question = sub.question
+                    )
+                }
             )
         }
-        questionDao.insert(item)
+        GlobalScope.launch {
+            questionDao.insert(item)
+        }.join()
     }
 
-    override suspend fun getAllQuestions(): List<Question> {
-       return questionDao.getAllQuestions().map {
-           Question(
-               name = it.name
-           )
-       }
+    override suspend fun getAllQuestions(): List<CraneInfo> {
+        var list: List<CraneInfo> = listOf()
+        GlobalScope.launch {
+            list = questionDao.getAllQuestions().map {
+                CraneInfo(
+                    required = it.required,
+                    question = it.question,
+                    answer = it.answer,
+                    subQuestions = it.subQuestions.map { sub ->
+                        CraneInfoSubQuestions(
+                            answer = sub.answer,
+                            question = sub.question
+                        )
+                    }
+                )
+            }
+        }.join()
+
+        return list
     }
 
     override suspend fun deleteAllQuestions() {

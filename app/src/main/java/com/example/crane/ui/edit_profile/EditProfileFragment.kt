@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.crane.R
-import com.example.crane.base.BaseFragment
-import com.example.crane.custom_view.CustomToast
+import com.example.ui_components.base.BaseFragment
+import com.example.ui_components.custom_view.CustomToast
 import com.example.crane.databinding.FragmentEditProfileBinding
 import com.example.data.common.SharedPreferencesSetting
 import kotlinx.android.synthetic.main.fragment_edit_profile.*

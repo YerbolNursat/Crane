@@ -3,8 +3,8 @@ package com.example.crane.ui.registration
 import android.content.Intent
 import android.os.Bundle
 import com.example.crane.R
-import com.example.crane.base.BaseActivity
-import com.example.crane.custom_view.CustomToast
+import com.example.ui_components.base.BaseActivity
+import com.example.ui_components.custom_view.CustomToast
 import com.example.crane.ui.MainActivity
 import com.example.data.common.SharedPreferencesSetting
 import kotlinx.android.synthetic.main.activity_registration.*

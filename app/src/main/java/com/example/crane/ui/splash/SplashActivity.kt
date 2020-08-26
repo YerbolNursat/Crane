@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.example.crane.R
-import com.example.crane.base.BaseActivity
+import com.example.ui_components.base.BaseActivity
 import com.example.crane.ui.MainActivity
 import com.example.crane.ui.registration.RegistrationActivity
 import com.example.data.common.SharedPreferencesSetting

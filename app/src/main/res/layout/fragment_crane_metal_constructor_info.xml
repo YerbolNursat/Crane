@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.crane.ui.crane_metal_constructor.CraneMetalConstructorViewModel" />
+            type="com.example.crane.ui.crane_metal_constructor.CraneMetalConstructorInfoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

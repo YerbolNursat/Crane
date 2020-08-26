@@ -7,7 +7,7 @@ import androidx.databinding.ViewDataBinding
 import com.example.crane.BR
 import com.example.crane.R
 import com.example.crane.databinding.ItemCranePartPiecesBinding
-import com.example.crane.modal.ModalBottomSheetDialog
+import com.example.ui_components.modal.ModalBottomSheetDialog
 import com.xwray.groupie.databinding.BindableItem
 
 data class CranePartPiecesUi(

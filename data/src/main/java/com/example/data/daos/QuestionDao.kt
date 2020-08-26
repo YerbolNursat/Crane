@@ -1,22 +1,21 @@
 package com.example.data.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.data.entities.Question
+import com.example.data.entities.CraneInfo
 
 @Dao
-interface QuestionDao{
+abstract class QuestionDao {
 
-    @Query("DELETE FROM questions_table")
-    fun deleteAllQuestions()
+    @Query("DELETE FROM question_table")
+    abstract suspend fun deleteAllQuestions()
 
-    @Query("SELECT * FROM questions_table")
-    fun getAllQuestions(): List<Question>
+    @Query("SELECT * FROM question_table")
+    abstract suspend fun getAllQuestions(): List<CraneInfo>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(questions: Question)
+    abstract suspend fun insert(questions: CraneInfo)
 
 }

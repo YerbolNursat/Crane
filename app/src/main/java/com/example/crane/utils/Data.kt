@@ -1,9 +1,9 @@
 package com.example.crane.utils
 
 import android.content.Context
-import com.example.crane.entities.*
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CraneTypeUi
+import com.example.domain.entities.*
 import com.google.gson.Gson
 import timber.log.Timber
 

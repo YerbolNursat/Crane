@@ -8,7 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crane.R
-import com.example.crane.base.BaseFragment
+import com.example.ui_components.base.BaseFragment
 import com.example.crane.databinding.FragmentChooseCraneBinding
 import com.example.crane.ui.items.ChooseCraneTypeUi
 import com.xwray.groupie.GroupAdapter

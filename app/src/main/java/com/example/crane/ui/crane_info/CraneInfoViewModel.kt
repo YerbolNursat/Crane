@@ -4,15 +4,22 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 
-import com.example.crane.entities.CraneInfoResponse
-import com.example.crane.events.Event
+import com.example.ui_components.events.Event
 import com.example.crane.ui.items.CraneInfoSubQuestionsUi
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.utils.getCraneInfoResponseFromAssetFile
+import com.example.domain.entities.CraneInfoResponse
+import com.example.domain.usecases.questions.CreateQuestionUseCase
+import com.example.domain.usecases.questions.GetAllQuestionsUseCase
 import com.hadilq.liveevent.LiveEvent
+import timber.log.Timber
 
-class CraneInfoViewModel : ViewModel() {
+class CraneInfoViewModel(
+    val createQuestionUseCase: CreateQuestionUseCase,
+    val getAllQuestionsUseCase: GetAllQuestionsUseCase
+) : ViewModel() {
     private val _items = MutableLiveData<List<CraneInfoUi>>()
     val items: LiveData<List<CraneInfoUi>> = _items
 
@@ -23,6 +30,15 @@ class CraneInfoViewModel : ViewModel() {
     ) {
         val response = getCraneInfoResponseFromAssetFile(context)
         _items.value = transformDataToCraneInfoUi(response)
+//        response.list.forEachIndexed { index, question ->
+//            createQuestionUseCase(viewModelScope, question)
+//            Timber.i("Created")
+//        }
+        getAllQuestionsUseCase(viewModelScope, Unit) {
+            Timber.i(it.toString())
+        }
+
+
     }
 
     private fun transformDataToCraneInfoUi(response: CraneInfoResponse): List<CraneInfoUi> {

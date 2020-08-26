@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crane.R
-import com.example.crane.base.BaseBottomSheetDialogItem
+import com.example.ui_components.base.BaseBottomSheetDialogItem
 import com.example.crane.databinding.ItemBottomSheetChooseStateBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder

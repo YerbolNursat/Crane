@@ -5,7 +5,7 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.crane.R
-import com.example.crane.base.BaseActivity
+import com.example.ui_components.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
