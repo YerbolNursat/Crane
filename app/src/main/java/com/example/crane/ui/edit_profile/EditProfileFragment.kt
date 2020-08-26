@@ -9,7 +9,7 @@ import com.example.crane.R
 import com.example.crane.base.BaseFragment
 import com.example.crane.custom_view.CustomToast
 import com.example.crane.databinding.FragmentEditProfileBinding
-import com.example.crane.utils.SharedPreferencesSetting
+import com.example.data.common.SharedPreferencesSetting
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import org.koin.android.ext.android.inject
 

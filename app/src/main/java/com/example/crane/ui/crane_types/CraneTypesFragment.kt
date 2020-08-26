@@ -18,6 +18,7 @@ import com.example.crane.ui.MainActivity
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CraneTypeUi
 import com.example.crane.utils.*
+import com.example.data.common.SharedPreferencesSetting
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_crane_types.*

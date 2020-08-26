@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.crane.R
 import com.example.crane.base.BaseFragment
 import com.example.crane.databinding.FragmentProfileBinding
-import com.example.crane.utils.SharedPreferencesSetting
+import com.example.data.common.SharedPreferencesSetting
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
 

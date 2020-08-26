@@ -26,6 +26,7 @@ class ModalBottomSheetDialogWithButtons(
     isHideAble = isHideAble,
     peekHide = peekHide
 ) {
+
     init {
         btn_apply.setOnClickListener {
             actionButtonApply?.let { it() }

@@ -7,7 +7,7 @@ import com.example.crane.R
 import com.example.crane.base.BaseActivity
 import com.example.crane.ui.MainActivity
 import com.example.crane.ui.registration.RegistrationActivity
-import com.example.crane.utils.SharedPreferencesSetting
+import com.example.data.common.SharedPreferencesSetting
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
