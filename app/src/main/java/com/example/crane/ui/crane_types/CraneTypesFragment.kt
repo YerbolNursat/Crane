@@ -54,9 +54,7 @@ class CraneTypesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.requestItems(
-            arguments?.get("craneTypeUi") as List<CraneTypeUi>?
-        )
+        viewModel.requestItems(requireContext())
         initRecyclerView()
         initOnClickListener()
     }
@@ -70,21 +68,19 @@ class CraneTypesFragment : BaseFragment() {
             if (viewModel.checkOnCompleteness()) {
                 if (isStoragePermissionGranted(requireContext(), requireActivity())) {
                     val action: (() -> Unit) = {
-                        viewModel.loadingChecker.value = false
                         val intent = Intent(requireContext(), MainActivity::class.java)
+                        viewModel.deleteAll()
                         startActivity(intent)
-
                         activity?.finish()
                     }
 
-                    viewModel.loadingChecker.value = true
                     saveFileInPdf(
                         requireContext(),
                         root_cl,
                         sharedPreferencesSetting.firstName + " " + sharedPreferencesSetting.secondName + " " + sharedPreferencesSetting.lastName + " " + setTime(),
                         content = "<pre>" +
                                 prepareInfoPdfData(
-                                    arguments?.get("craneInfoUi") as List<CraneInfoUi>,
+                                    viewModel.сraneInfo.value!!,
                                     sharedPreferencesSetting.firstName!!,
                                     sharedPreferencesSetting.secondName!!,
                                     sharedPreferencesSetting.lastName!!,
@@ -101,7 +97,7 @@ class CraneTypesFragment : BaseFragment() {
 
                 }
             } else {
-                CustomToast(root_cl).showMessage("Заполните поля")
+                CustomToast(root_cl).showMessage("Заполните данные")
             }
         }
     }
@@ -122,10 +118,7 @@ class CraneTypesFragment : BaseFragment() {
                     R.id.action_navigation_crane_types_to_craneFullInfoFragment,
                     bundleOf(
                         "id" to item.id,
-                        "header_title" to item.name,
-                        "craneInfoUi" to arguments?.get("craneInfoUi") as List<CraneInfoUi>,
-                        "craneTypeUi" to viewModel.items.value
-
+                        "header_title" to item.name
                     )
                 )
             } else {
@@ -133,9 +126,7 @@ class CraneTypesFragment : BaseFragment() {
                     R.id.action_navigation_crane_types_to_craneMetalConstructorFragment,
                     bundleOf(
                         "id" to item.id,
-                        "header_title" to item.name,
-                        "craneInfoUi" to arguments?.get("craneInfoUi") as List<CraneInfoUi>,
-                        "craneTypeUi" to viewModel.items.value
+                        "header_title" to item.name
 
                     )
                 )
@@ -160,8 +151,5 @@ class CraneTypesFragment : BaseFragment() {
         return format1.format(cal.time)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
 }

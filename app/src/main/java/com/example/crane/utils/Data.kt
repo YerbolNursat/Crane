@@ -95,8 +95,8 @@ fun prepareCraneStatusPdfData(list: List<CraneTypeUi>): String {
                     data += "<h6>     ${cranePartsUi.name}</h6>" + "<br>"
                     cranePartsUi.pieces.forEachIndexed { index, cranePartPiecesUi ->
                         data += "<h6>          ${cranePartPiecesUi.name}: ${if (cranePartPiecesUi.value.satisfactory!!) "Удовлетворительно" else "Неудовлетворительно"} </h6><br>"
-                        if (!cranePartPiecesUi.value.comments.isNullOrEmpty())
-                            data += "               Комментарий: ${cranePartPiecesUi.value.comments} <br>"
+                        if (!cranePartPiecesUi.comment.isNullOrEmpty())
+                            data += "               Комментарий: ${cranePartPiecesUi.comment} <br>"
                     }
                 }
             }
@@ -105,8 +105,8 @@ fun prepareCraneStatusPdfData(list: List<CraneTypeUi>): String {
                     data += "<h6>     ${cranePartsUi.name}</h6>" + "<br>"
                     cranePartsUi.pieces.forEachIndexed { index, cranePartPiecesUi ->
                         data += "<h6>          ${cranePartPiecesUi.name}: ${if (cranePartPiecesUi.value.satisfactory!!) "Удовлетворительно" else "Неудовлетворительно"}</h6> <br>"
-                        if (!cranePartPiecesUi.value.comments.isNullOrEmpty())
-                            data += "<h6>               Комментарий: ${cranePartPiecesUi.value.comments}</h6> <br>"
+                        if (!cranePartPiecesUi.comment.isNullOrEmpty())
+                            data += "<h6>               Комментарий: ${cranePartPiecesUi.comment}</h6> <br>"
                     }
                 }
 
@@ -116,8 +116,8 @@ fun prepareCraneStatusPdfData(list: List<CraneTypeUi>): String {
                     data += "<h6>     ${cranePartsUi.name}</h6>" + "<br>"
                     cranePartsUi.pieces.forEachIndexed { index, cranePartPiecesUi ->
                         data += "<h6>          ${cranePartPiecesUi.name}: ${if (cranePartPiecesUi.value.satisfactory!!) "Удовлетворительно" else "Неудовлетворительно"}</h6> <br>"
-                        if (!cranePartPiecesUi.value.comments.isNullOrEmpty())
-                            data += "<h6>               Комментарий: ${cranePartPiecesUi.value.comments}</h6> <br>"
+                        if (!cranePartPiecesUi.comment.isNullOrEmpty())
+                            data += "<h6>               Комментарий: ${cranePartPiecesUi.comment}</h6> <br>"
                     }
                 }
             }

@@ -87,9 +87,6 @@
                     android:textSize="@dimen/textsize_17sp" />
             </RelativeLayout>
         </LinearLayout>
-        <include
-            layout="@layout/content_loading"
-            app:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

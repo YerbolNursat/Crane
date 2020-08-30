@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:onClick="@{_ -> data.onClick()}"
         android:paddingTop="@dimen/padding_16dp"
         android:paddingBottom="@dimen/padding_16dp">
 
@@ -40,15 +39,27 @@
                 android:textSize="@dimen/text_size_17sp"
                 tools:text="Качество посадки муфты" />
 
-            <TextView
-                android:id="@+id/text_comment"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answerEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{data.value.comments}"
-                android:textColor="@color/grayColor9E"
-                android:textSize="@dimen/text_size_13sp"
-                tools:text="Всё очень плохо" />
-
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:text="@{data.comment}"
+                android:background="@color/whiteSmoke"
+                android:hint="Заполните здесь"
+                android:maxLines="5"
+                android:paddingStart="@dimen/padding_16dp"
+                android:paddingTop="@dimen/padding_14dp"
+                android:paddingEnd="@dimen/padding_16dp"
+                android:paddingBottom="@dimen/padding_14dp"
+                android:textColor="@color/black33"
+                android:textColorHint="@color/grayColorBD"
+                android:textSize="@dimen/text_size_17sp"
+                android:visibility="@{data.value.unsatisfactory ? View.VISIBLE : View.GONE }"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_ll" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +72,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:onClick="@{_->data.onSatisfactoryClick()}"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,7 +95,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:onClick="@{_ -> data.onUnsatisfactoryClick()}"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_8dp">
 
                 <TextView
                     android:layout_width="wrap_content"

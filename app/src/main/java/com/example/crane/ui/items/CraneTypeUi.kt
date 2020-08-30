@@ -1,5 +1,6 @@
 package com.example.crane.ui.items
 
+import android.annotation.SuppressLint
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ViewDataBinding
@@ -10,6 +11,7 @@ import com.xwray.groupie.databinding.BindableItem
 
 data class CraneTypeUi(
     val id: Int,
+    var filled:Boolean = false,
     val name: String
 ) : BindableItem<ViewDataBinding>() {
     val value = ValueType()
@@ -17,14 +19,44 @@ data class CraneTypeUi(
         return R.layout.item_crane_type
     }
 
+    @SuppressLint("SetTextI18n")
     override fun bind(viewBinding: ViewDataBinding, position: Int) {
         when (viewBinding) {
             is ItemCraneTypeBinding -> {
                 viewBinding.data = this
-                if (value.cranePartsUiConstr.isNullOrEmpty() && value.cranePartsUiEl.isNullOrEmpty() && value.cranePartsUiMech.isNullOrEmpty()) {
-                    viewBinding.checkTv.text = "Заполните"
+                var total = 0
+                var filled = 0
+                value.cranePartsUiMech?.forEach { cranePartsUi ->
+                    cranePartsUi.pieces.forEach { cranePartsPiecesUi ->
+                        total++
+                        if (cranePartsPiecesUi.value.filled == true) {
+                            filled++
+                        }
+                    }
+                }
+                value.cranePartsUiConstr?.forEach { cranePartsUi ->
+                    cranePartsUi.pieces.forEach { cranePartsPiecesUi ->
+                        total++
+                        if (cranePartsPiecesUi.value.filled == true) {
+                            filled++
+                        }
+                    }
+                }
+                value.cranePartsUiEl?.forEach { cranePartsUi ->
+                    cranePartsUi.pieces.forEach { cranePartsPiecesUi ->
+                        total++
+                        if (cranePartsPiecesUi.value.filled == true) {
+                            filled++
+                        }
+                    }
+                }
+                if (filled == 0) {
+                    viewBinding.checkTv.text = "Не заполнено"
                 } else {
-                    viewBinding.checkTv.text = "Заполнено"
+                    viewBinding.checkTv.text = "Заполнено на ${filled * 100 / total}%"
+                }
+                if (total / filled == 1){
+                    this.filled = true
                 }
             }
         }

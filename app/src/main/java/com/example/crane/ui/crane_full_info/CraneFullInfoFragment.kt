@@ -14,10 +14,16 @@ import com.example.crane.databinding.FragmentCraneFullInfoBinding
 import com.example.crane.ui.items.CraneInfoUi
 import com.example.crane.ui.items.CranePartsUi
 import com.example.crane.ui.items.CraneTypeUi
+import com.example.ui_components.events.Event
 import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_crane_full_info.*
+import kotlinx.android.synthetic.main.fragment_crane_full_info.btn_apply
+import kotlinx.android.synthetic.main.fragment_crane_full_info.btn_save
+import kotlinx.android.synthetic.main.fragment_crane_full_info.ic_back
+import kotlinx.android.synthetic.main.fragment_crane_full_info.root_cl
+import kotlinx.android.synthetic.main.fragment_crane_metal_constructor_info.*
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,16 +49,9 @@ class CraneFullInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            Timber.i(it.getInt("id").toString())
-            Timber.i(it.get("craneTypeUi").toString())
-            Timber.i(it.getString("header_title").toString())
-        }
         binding.headerTitle.text = arguments?.getString("header_title")!!
         viewModel.requestItems(
-            requireContext(),
-            arguments?.getInt("id")!!,
-            arguments?.get("craneTypeUi") as List<CraneTypeUi>?
+            arguments?.getInt("id")!!
         )
         initRecyclerView()
         initTabLayout()
@@ -62,24 +61,22 @@ class CraneFullInfoFragment : BaseFragment() {
 
     private fun initOnClickListener() {
         ic_back.setOnClickListener {
+            viewModel.saveData()
             activity?.onBackPressed()
         }
         btn_apply.setOnClickListener {
-            if (viewModel.checkOnCompleteness()){
-                viewModel.setData()
-                findNavController().navigate(
-                    R.id.action_craneFullInfoFragment_to_navigation_crane_types,
-                    bundleOf(
-                        "craneTypeUi" to viewModel.items,
-                        "id" to arguments?.getInt("id")!!,
-                        "craneInfoUi" to arguments?.get("craneInfoUi") as List<CraneInfoUi>
-
-                    )
-                )
+            if (viewModel.checkOnCompleteness()) {
+                viewModel.saveData()
+                findNavController().navigate(R.id.action_craneFullInfoFragment_to_navigation_crane_types)
             } else {
                 CustomToast(root_cl).showMessage("Заполните поля")
             }
         }
+        btn_save.setOnClickListener {
+            CustomToast(root_cl).showMessage("Сохранено")
+            viewModel.saveData()
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -95,9 +92,18 @@ class CraneFullInfoFragment : BaseFragment() {
         super.onStart()
         viewModel.itemsMech.observe(viewLifecycleOwner, Observer(::onItemsMechChanged))
         viewModel.itemsEl.observe(viewLifecycleOwner, Observer(::onItemsElChanged))
-
+        viewModel.hideKeyboardEvent.observe(viewLifecycleOwner, Observer(::hideKeyboard))
+        viewModel.saveEvent.observe(viewLifecycleOwner, Observer(::onSave))
 
     }
+    private fun onSave(event: Event<Boolean>) {
+        CustomToast(root_cl).showMessage("Сохранено")
+    }
+
+    private fun hideKeyboard(event: Event<Boolean>) {
+        hideKeyBoard()
+    }
+
 
     private fun onItemsElChanged(data: List<CranePartsUi>) {
         groupAdapterEl.addAll(data)

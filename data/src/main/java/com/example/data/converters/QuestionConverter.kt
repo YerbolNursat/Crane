@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 object QuestionConverter {
-    val gson = Gson()
+    private val gson = Gson()
 
     @JvmStatic
     @TypeConverter
@@ -22,4 +22,5 @@ object QuestionConverter {
         return gson.fromJson(data,listType)
 
     }
+
 }

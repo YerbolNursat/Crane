@@ -1,8 +1,6 @@
 package com.example.domain.usecases.questions
 
 import com.example.domain.entities.CraneInfo
-import com.example.domain.entities.CraneInfoResponse
-import com.example.domain.entities.Question
 import com.example.domain.repositories.QuestionRepository
 import com.example.domain.usecases.BaseUseCase
 

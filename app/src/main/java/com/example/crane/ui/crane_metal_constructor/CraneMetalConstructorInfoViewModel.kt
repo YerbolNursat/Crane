@@ -1,21 +1,35 @@
 package com.example.crane.ui.crane_metal_constructor
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.crane.ui.items.CranePartPiecesUi
 import com.example.crane.ui.items.CranePartsUi
-import com.example.crane.ui.items.CraneTypeUi
-import com.example.crane.utils.getCraneConstrInfoResponseFromAssetFile
-import com.example.domain.entities.CraneConstrInfo
+import com.example.domain.entities.CranePartInfo
+import com.example.domain.entities.CraneParts
+import com.example.domain.entities.CranePartsPieces
+import com.example.domain.usecases.crane_parts.GetCraneByIdUseCase
+import com.example.domain.usecases.crane_parts.UpdateCraneByIdAndTypeUseCase
+import com.example.ui_components.events.Event
+import com.hadilq.liveevent.LiveEvent
 
-class CraneMetalConstructorInfoViewModel : ViewModel() {
+class CraneMetalConstructorInfoViewModel(
+    private val getCraneByIdUseCase: GetCraneByIdUseCase,
+    private val updateCraneByIdAndTypeUseCase: UpdateCraneByIdAndTypeUseCase
+
+) : ViewModel() {
+    val hideKeyboardEvent = LiveEvent<Event<Boolean>>()
+    val saveEvent = LiveEvent<Event<Boolean>>()
+
     private val _itemsConstr = MutableLiveData<List<CranePartsUi>>()
     val itemsConstr: LiveData<List<CranePartsUi>> = _itemsConstr
 
-    var items: MutableList<CraneTypeUi> = mutableListOf()
     var id = 1
+
+    private val hideKeyboardAction: () -> Unit = {
+        hideKeyboardEvent.postValue(Event(true))
+    }
     private val actionToCheckConstrPieces: (() -> Unit) = {
         _itemsConstr.value?.forEach {
             var temp = false
@@ -28,42 +42,52 @@ class CraneMetalConstructorInfoViewModel : ViewModel() {
     }
 
     fun requestItems(
-        context: Context,
-        id: Int,
-        list: List<CraneTypeUi>?
-
+        id: Int
     ) {
         this.id = id
-        list?.let {
-            items = it as MutableList<CraneTypeUi>
-            it.forEach {
-                if (it.id == id) {
-                    if (!it.value.cranePartsUiConstr.isNullOrEmpty()) {
-                        _itemsConstr.value = it.value.cranePartsUiConstr
-                        return
+        getCraneByIdUseCase(viewModelScope, id) {
+            it.forEach { cranePartInfo ->
+                when (cranePartInfo.type) {
+                    "Constr" -> {
+                        _itemsConstr.value = transformDataToCranePartsUi(cranePartInfo)
                     }
                 }
+
             }
         }
-        val responseConstr = getCraneConstrInfoResponseFromAssetFile(context)
-        responseConstr?.let {
-            _itemsConstr.value = transformDataToCranePartsUi(responseConstr)
-        }
-
     }
 
-    private fun transformDataToCranePartsUi(response: CraneConstrInfo): List<CranePartsUi> {
-        return response.list.map {
-            CranePartsUi(
-                name = it.name,
-                pieces = it.pieces.map { pieces ->
-                    CranePartPiecesUi(
-                        pieces.name,
-                        actionToCheckConstrPieces
+    private fun transformDataToCranePartsUi(response: CranePartInfo): List<CranePartsUi> {
+        return response.craneParts.let {
+            val list: MutableList<CranePartsUi> = mutableListOf()
+            it.forEach {
+                val item = CranePartsUi(
+                    name = it.name,
+                    pieces = it.pieces.let {
+                        val listOfPieces: MutableList<CranePartPiecesUi> = mutableListOf()
+                        it.forEach { pieces ->
+                            val item = CranePartPiecesUi(
+                                pieces.name,
+                                comment = pieces.comment,
+                                actionToCheck = actionToCheckConstrPieces,
+                                hideKeyBoard = hideKeyboardAction
+                            )
+                            item.value.satisfactory = pieces.satisfactory
+                            item.value.unsatisfactory = pieces.unsatisfactory
+                            item.value.filled = pieces.filled
 
-                    )
-                }
-            )
+                            listOfPieces.add(item)
+                        }
+                        listOfPieces
+                    }
+                )
+
+                it.filled?.let { item.value.filled = it }
+                item.value.openView = it.openView
+
+                list.add(item)
+            }
+            list
         }
     }
 
@@ -75,12 +99,32 @@ class CraneMetalConstructorInfoViewModel : ViewModel() {
         }
         return true
     }
+    fun saveData() {
+        updateCraneByIdAndTypeUseCase(
+            viewModelScope, UpdateCraneByIdAndTypeUseCase.Params(
+                id, "Constr",
+                _itemsConstr.value?.map {
+                    CraneParts(
+                        name = it.name,
+                        filled = it.value.filled,
+                        openView = it.value.openView,
+                        pieces = it.pieces.map { pieces ->
+                            CranePartsPieces(
+                                comment = pieces.comment,
+                                filled = pieces.value.filled,
+                                name = pieces.name,
+                                satisfactory = pieces.value.satisfactory,
+                                unsatisfactory = pieces.value.unsatisfactory
+                            )
+                        }
 
-    fun setData() {
-        items.forEach {
-            if (it.id == id ) {
-                it.value.cranePartsUiConstr = itemsConstr.value
-            }
+                    )
+                }!!
+            )
+        ){
+            saveEvent.postValue(Event(true))
         }
+
     }
+
 }

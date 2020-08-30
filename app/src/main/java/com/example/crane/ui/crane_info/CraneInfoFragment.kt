@@ -48,10 +48,17 @@ class CraneInfoFragment : BaseFragment() {
 
     private fun initOnClickListener() {
         ic_back.setOnClickListener {
+            viewModel.saveData()
             activity?.onBackPressed()
         }
         btn_apply.setOnClickListener {
             viewModel.checkOnCompleteness()
+        }
+        btn_save.setOnClickListener {
+            viewModel.saveData()
+        }
+        ic_delete.setOnClickListener {
+            viewModel.deleteData(requireContext())
         }
     }
 
@@ -59,6 +66,8 @@ class CraneInfoFragment : BaseFragment() {
         super.onStart()
         viewModel.items.observe(viewLifecycleOwner, Observer(::onItemsChanged))
         viewModel.newDestination.observe(viewLifecycleOwner, Observer(::onNavigate))
+        viewModel.saveEvent.observe(viewLifecycleOwner, Observer(::onSave))
+        viewModel.deleteEvent.observe(viewLifecycleOwner, Observer(::onDelete))
 
     }
 
@@ -66,13 +75,20 @@ class CraneInfoFragment : BaseFragment() {
         if (event.peek()) {
             hideKeyBoard()
             findNavController().navigate(
-                R.id.action_craneInfoFragment_to_navigation_crane_types,
-                bundleOf("craneInfoUi" to viewModel.items.value)
+                R.id.action_craneInfoFragment_to_navigation_crane_types
             )
         } else {
             CustomToast(root_cl).showMessage("Заполните поля")
         }
 
+    }
+
+    private fun onSave(event: Event<Boolean>) {
+        CustomToast(root_cl).showMessage("Сохранено")
+    }
+
+    private fun onDelete(event: Event<Boolean>) {
+        CustomToast(root_cl).showMessage("Удалены")
     }
 
     private fun onItemsChanged(data: List<CraneInfoUi>) {

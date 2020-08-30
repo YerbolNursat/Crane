@@ -5,21 +5,26 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.data.converters.CranePartsConverter
 import com.example.data.converters.QuestionConverter
+import com.example.data.daos.CranePartDao
 import com.example.data.daos.QuestionDao
 import com.example.data.entities.CraneInfo
+import com.example.data.entities.CranePart
 
 @Database(
     entities = [
-        CraneInfo::class
+        CraneInfo::class,
+        CranePart::class
     ],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(QuestionConverter::class)
+@TypeConverters(QuestionConverter::class, CranePartsConverter::class)
 abstract class DB : RoomDatabase() {
 
     abstract fun getQuestion(): QuestionDao
+    abstract fun getCraneParts(): CranePartDao
 
 
     companion object {

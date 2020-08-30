@@ -51,7 +51,9 @@ class DefaultQuestionRepository(
     }
 
     override suspend fun deleteAllQuestions() {
-        questionDao.deleteAllQuestions()
+        GlobalScope.launch {
+            questionDao.deleteAllQuestions()
+        }.join()
     }
 
 }

@@ -53,6 +53,20 @@
                         android:text="Краткие сведения крана"
                         android:textColor="@color/black21"
                         android:textSize="@dimen/textsize_20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <ImageView
+                            android:id="@+id/ic_delete"
+                            android:layout_width="@dimen/width_40dp"
+                            android:layout_height="@dimen/height_40dp"
+                            android:layout_gravity="end"
+                            android:src="@drawable/ic_delete" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -75,15 +89,45 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@android:color/transparent"
+            android:orientation="horizontal"
             android:paddingStart="@dimen/padding_8dp"
             android:paddingEnd="@dimen/padding_8dp"
             android:paddingBottom="@dimen/margin_16dp">
 
+
+            <RelativeLayout
+                android:id="@+id/btn_save"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_48dp"
+                android:layout_marginStart="@dimen/padding_4dp"
+                android:layout_marginEnd="@dimen/padding_4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_blue_r8"
+                android:backgroundTint="@color/button_secondary"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:textAllCaps="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_horizontal"
+                    android:text="Сохранить"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsize_17sp" />
+
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/btn_apply"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/height_48dp"
+                android:layout_marginStart="@dimen/padding_4dp"
+                android:layout_marginEnd="@dimen/padding_4dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button_blue_r8"
                 android:backgroundTint="@color/colorPrimary"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -100,5 +144,6 @@
                     android:textSize="@dimen/textsize_17sp" />
             </RelativeLayout>
         </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

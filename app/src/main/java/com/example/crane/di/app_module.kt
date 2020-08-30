@@ -9,9 +9,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { CraneTypesViewModel() }
-    viewModel { CraneInfoViewModel(createQuestionUseCase = get(),getAllQuestionsUseCase = get()) }
-    viewModel { CraneFullInfoViewModel() }
+    viewModel { CraneTypesViewModel(createCranePartUseCase = get(),getAllCranePartsUseCase = get(),deleteAllCranePartsUseCase = get(),deleteAllQuestionsUseCase = get(),getAllQuestionsUseCase = get()) }
+    viewModel { CraneInfoViewModel(createQuestionUseCase = get(),getAllQuestionsUseCase = get(),deleteAllQuestionsUseCase = get()) }
+    viewModel { CraneFullInfoViewModel(getCraneByIdUseCase = get(),updateCraneByIdAndTypeUseCase = get()) }
     viewModel { ChooseCraneViewModel() }
-    viewModel { CraneMetalConstructorInfoViewModel() }
+    viewModel { CraneMetalConstructorInfoViewModel(getCraneByIdUseCase = get(),updateCraneByIdAndTypeUseCase = get()) }
 }

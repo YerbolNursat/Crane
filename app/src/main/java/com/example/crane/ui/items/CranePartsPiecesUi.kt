@@ -1,6 +1,7 @@
 package com.example.crane.ui.items
 
 import android.content.Context
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ViewDataBinding
@@ -12,63 +13,47 @@ import com.xwray.groupie.databinding.BindableItem
 
 data class CranePartPiecesUi(
     val name: String,
-    val actionToCheck: (() -> Unit)
+    var comment: String? = null,
+    val actionToCheck: (() -> Unit)? = null,
+    val hideKeyBoard: (() -> Unit)? = null
 ) : BindableItem<ViewDataBinding>() {
     val value = ValuePartPieces()
-    lateinit var context: Context
-    private val action: ((Int, String?) -> Unit) = { id, comment ->
-        when (id) {
-            0 -> {
-                value.satisfactory = true
-                value.unsatisfactory = false
-            }
-            1 -> {
-                value.satisfactory = false
-                value.unsatisfactory = true
-
-            }
-        }
-        value.comments = comment
-        actionToCheck()
-    }
-
+    lateinit var binding: ItemCranePartPiecesBinding
     override fun getLayout(): Int {
         return R.layout.item_crane_part_pieces
     }
 
     override fun bind(viewBinding: ViewDataBinding, position: Int) {
-        context = viewBinding.root.context
         when (viewBinding) {
             is ItemCranePartPiecesBinding -> {
                 viewBinding.data = this
+                binding = viewBinding
+                binding.answerEditText.doOnTextChanged { text, _, _, _ ->
+                    comment = text.toString()
+                    value.filled = comment!!.isNotEmpty()
+                    actionToCheck?.let { it() }
+                }
             }
         }
 
     }
 
-    fun onClick() {
-        val satisfactory = CraneStatusUI(
-            id = 0,
-            name = "Удовлетворительно"
-        )
-        satisfactory.value.clicked = value.satisfactory ?: false
+    fun onSatisfactoryClick() {
+        comment = null
+        value.satisfactory = true
+        value.unsatisfactory = false
+        value.filled = true
+        hideKeyBoard?.let { it() }
+        actionToCheck?.let { it() }
+    }
 
-        val unsatisfactory = CraneStatusUI(
-            id = 1,
-            name = "Неудовлетворительно"
-        )
-        unsatisfactory.value.clicked = value.unsatisfactory ?: false
-
-
-        val list: MutableList<CraneChooseStateUi> = mutableListOf()
-        list.add(
-            CraneChooseStateUi(listOf(satisfactory, unsatisfactory), value.comments, action)
-        )
-        ModalBottomSheetDialog(
-            items = list,
-            context1 = context,
-            transparent = true
-        )
+    fun onUnsatisfactoryClick() {
+        comment = null
+        value.satisfactory = false
+        value.unsatisfactory = true
+        value.filled = false
+        actionToCheck?.let { it() }
+        binding.answerEditText.setText("")
     }
 
 }
@@ -85,7 +70,6 @@ class ValuePartPieces : BaseObservable() {
     var satisfactory: Boolean? = null
         set(value) {
             field = value
-            filled = true
             notifyPropertyChanged(BR.satisfactory)
         }
 
@@ -93,14 +77,7 @@ class ValuePartPieces : BaseObservable() {
     var unsatisfactory: Boolean? = null
         set(value) {
             field = value
-            filled = true
             notifyPropertyChanged(BR.unsatisfactory)
         }
 
-    @Bindable
-    var comments: String? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.comments)
-        }
 }
