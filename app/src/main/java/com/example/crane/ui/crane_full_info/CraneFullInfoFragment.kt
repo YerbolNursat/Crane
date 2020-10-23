@@ -104,7 +104,6 @@ class CraneFullInfoFragment : BaseFragment() {
         hideKeyBoard()
     }
 
-
     private fun onItemsElChanged(data: List<CranePartsUi>) {
         groupAdapterEl.addAll(data)
         groupAdapterEl.notifyDataSetChanged()

@@ -38,6 +38,7 @@ data class CraneInfoUi(
     }
 
     private fun initRecyclerView() {
+        groupAdapter.clear()
         groupAdapter.addAll(subQuestions)
         binding.subQuestionsRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

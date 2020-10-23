@@ -11,7 +11,7 @@ import com.xwray.groupie.databinding.BindableItem
 
 data class CraneTypeUi(
     val id: Int,
-    var filled:Boolean = false,
+    var filled: Boolean = false,
     val name: String
 ) : BindableItem<ViewDataBinding>() {
     val value = ValueType()
@@ -55,9 +55,11 @@ data class CraneTypeUi(
                 } else {
                     viewBinding.checkTv.text = "Заполнено на ${filled * 100 / total}%"
                 }
-                if (total / filled == 1){
-                    this.filled = true
-                }
+                try {
+                    if (total / filled == 1) {
+                        this.filled = true
+                    }
+                } catch (e: Exception) {}
             }
         }
     }

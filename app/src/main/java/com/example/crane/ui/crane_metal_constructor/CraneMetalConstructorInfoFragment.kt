@@ -39,8 +39,7 @@ class CraneMetalConstructorInfoFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            FragmentCraneMetalConstructorInfoBinding.inflate(inflater, container, false).apply {
+        binding = FragmentCraneMetalConstructorInfoBinding.inflate(inflater, container, false).apply {
                 viewModel = viewModel
                 lifecycleOwner = this@CraneMetalConstructorInfoFragment.viewLifecycleOwner
             }
@@ -50,6 +49,7 @@ class CraneMetalConstructorInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.i("onViewCreated")
         binding.headerTitle.text = arguments?.getString("header_title")!!
         viewModel.requestItems(
             arguments?.getInt("id")!!

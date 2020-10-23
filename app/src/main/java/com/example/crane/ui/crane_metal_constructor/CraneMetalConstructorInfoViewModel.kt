@@ -13,6 +13,7 @@ import com.example.domain.usecases.crane_parts.GetCraneByIdUseCase
 import com.example.domain.usecases.crane_parts.UpdateCraneByIdAndTypeUseCase
 import com.example.ui_components.events.Event
 import com.hadilq.liveevent.LiveEvent
+import timber.log.Timber
 
 class CraneMetalConstructorInfoViewModel(
     private val getCraneByIdUseCase: GetCraneByIdUseCase,
@@ -44,6 +45,7 @@ class CraneMetalConstructorInfoViewModel(
     fun requestItems(
         id: Int
     ) {
+        Timber.i("requestItems")
         this.id = id
         getCraneByIdUseCase(viewModelScope, id) {
             it.forEach { cranePartInfo ->
@@ -52,7 +54,6 @@ class CraneMetalConstructorInfoViewModel(
                         _itemsConstr.value = transformDataToCranePartsUi(cranePartInfo)
                     }
                 }
-
             }
         }
     }

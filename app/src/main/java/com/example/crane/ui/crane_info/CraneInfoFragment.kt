@@ -41,6 +41,7 @@ class CraneInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.i("onViewCreated")
         viewModel.requestItems(requireContext())
         initOnClickListener()
         initRecyclerView()
@@ -64,11 +65,11 @@ class CraneInfoFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        Timber.i("onStart")
         viewModel.items.observe(viewLifecycleOwner, Observer(::onItemsChanged))
         viewModel.newDestination.observe(viewLifecycleOwner, Observer(::onNavigate))
         viewModel.saveEvent.observe(viewLifecycleOwner, Observer(::onSave))
         viewModel.deleteEvent.observe(viewLifecycleOwner, Observer(::onDelete))
-
     }
 
     private fun onNavigate(event: Event<Boolean>) {
@@ -95,6 +96,7 @@ class CraneInfoFragment : BaseFragment() {
         Timber.i("OnItemsChanged")
         groupAdapter.clear()
         groupAdapter.addAll(data)
+        groupAdapter.notifyDataSetChanged()
     }
 
     private fun initRecyclerView() {

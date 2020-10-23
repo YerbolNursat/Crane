@@ -45,6 +45,7 @@ data class CraneChooseStateUi(
         binding.statusesRv.apply {
             val myAdapter = GroupAdapter<GroupieViewHolder>()
             items.value = statuses
+            myAdapter.clear()
             myAdapter.addAll(items.value!!)
             statuses.forEach {
                 it.action = checkerAction

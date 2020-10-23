@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/root_cl"
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16dp"
-            android:padding="@dimen/padding_16dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_16dp">
 
             <ImageView
                 android:id="@+id/ic_back"
@@ -37,117 +34,123 @@
                 android:textSize="@dimen/textsize_20sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_16dp">
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Введите имя"
-                android:textColor="@color/black21"
-                android:textSize="@dimen/text_size_17sp" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/firstNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:background="@color/whiteSmoke"
-                android:hint="Заполните здесь"
-                android:paddingStart="@dimen/padding_16dp"
-                android:paddingTop="@dimen/padding_14dp"
-                android:paddingEnd="@dimen/padding_16dp"
-                android:paddingBottom="@dimen/padding_14dp"
-                android:singleLine="true"
-                android:textColor="@color/black33"
-                android:textColorHint="@color/grayColorBD"
-                android:textSize="@dimen/text_size_17sp"
-                app:boxBackgroundMode="none" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Введите имя"
+                    android:textColor="@color/black21"
+                    android:textSize="@dimen/text_size_17sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Введите фамилию"
-                android:textColor="@color/black21"
-                android:textSize="@dimen/text_size_17sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@color/whiteSmoke"
+                    android:hint="Заполните здесь"
+                    android:paddingStart="@dimen/padding_16dp"
+                    android:paddingTop="@dimen/padding_14dp"
+                    android:paddingEnd="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_14dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black33"
+                    android:textColorHint="@color/grayColorBD"
+                    android:textSize="@dimen/text_size_17sp"
+                    app:boxBackgroundMode="none" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/secondNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:background="@color/whiteSmoke"
-                android:hint="Заполните здесь"
-                android:paddingStart="@dimen/padding_16dp"
-                android:paddingTop="@dimen/padding_14dp"
-                android:paddingEnd="@dimen/padding_16dp"
-                android:paddingBottom="@dimen/padding_14dp"
-                android:singleLine="true"
-                android:textColor="@color/black33"
-                android:textColorHint="@color/grayColorBD"
-                android:textSize="@dimen/text_size_17sp"
-                app:boxBackgroundMode="none" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Введите фамилию"
+                    android:textColor="@color/black21"
+                    android:textSize="@dimen/text_size_17sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Введите отчество"
-                android:textColor="@color/black21"
-                android:textSize="@dimen/text_size_17sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/secondNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@color/whiteSmoke"
+                    android:hint="Заполните здесь"
+                    android:paddingStart="@dimen/padding_16dp"
+                    android:paddingTop="@dimen/padding_14dp"
+                    android:paddingEnd="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_14dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black33"
+                    android:textColorHint="@color/grayColorBD"
+                    android:textSize="@dimen/text_size_17sp"
+                    app:boxBackgroundMode="none" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/lastNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:background="@color/whiteSmoke"
-                android:hint="Заполните здесь"
-                android:paddingStart="@dimen/padding_16dp"
-                android:paddingTop="@dimen/padding_14dp"
-                android:paddingEnd="@dimen/padding_16dp"
-                android:paddingBottom="@dimen/padding_14dp"
-                android:singleLine="true"
-                android:textColor="@color/black33"
-                android:textColorHint="@color/grayColorBD"
-                android:textSize="@dimen/text_size_17sp"
-                app:boxBackgroundMode="none" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Введите отчество"
+                    android:textColor="@color/black21"
+                    android:textSize="@dimen/text_size_17sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Введите должность"
-                android:textColor="@color/black21"
-                android:textSize="@dimen/text_size_17sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@color/whiteSmoke"
+                    android:hint="Заполните здесь"
+                    android:paddingStart="@dimen/padding_16dp"
+                    android:paddingTop="@dimen/padding_14dp"
+                    android:paddingEnd="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_14dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black33"
+                    android:textColorHint="@color/grayColorBD"
+                    android:textSize="@dimen/text_size_17sp"
+                    app:boxBackgroundMode="none" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/jobPositionEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:background="@color/whiteSmoke"
-                android:hint="Заполните здесь"
-                android:maxLines="5"
-                android:minLines="3"
-                android:paddingStart="@dimen/padding_16dp"
-                android:paddingTop="@dimen/padding_14dp"
-                android:paddingEnd="@dimen/padding_16dp"
-                android:paddingBottom="@dimen/padding_14dp"
-                android:textColor="@color/black33"
-                android:textColorHint="@color/grayColorBD"
-                android:textSize="@dimen/text_size_17sp"
-                app:boxBackgroundMode="none" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Введите должность"
+                    android:textColor="@color/black21"
+                    android:textSize="@dimen/text_size_17sp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/jobPositionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@color/whiteSmoke"
+                    android:hint="Заполните здесь"
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:paddingStart="@dimen/padding_16dp"
+                    android:paddingTop="@dimen/padding_14dp"
+                    android:paddingEnd="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_14dp"
+                    android:textColor="@color/black33"
+                    android:textColorHint="@color/grayColorBD"
+                    android:textSize="@dimen/text_size_17sp"
+                    app:boxBackgroundMode="none" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -181,5 +184,5 @@
                     android:textSize="@dimen/textsize_17sp" />
             </RelativeLayout>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
